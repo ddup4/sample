@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements DataLoader.DataCa
             ViewGroup beanItem = (ViewGroup) itemView.findViewById(R.id.bean_item);
             TextView beanItemCount = (TextView) beanItem.findViewById(R.id.bean_item_count);
             TextView beanItemText = (TextView) beanItem.findViewById(R.id.bean_item_text);
-            beanItemCount.setText(String.valueOf(bean.children == null ? "children is null" : "(" + bean.children.size() + ")"));
+            beanItemCount.setText(indentTextWith(bean.guessIndent()));
+            beanItemCount.append(String.valueOf(bean.children == null ? "children is null" : "(" + bean.children.size() + ")"));
             beanItemText.setText(bean.attr == null ? "bean attr is null" : bean.attr.treeName);
 
             if (!bean.isLeafAttr()) {
@@ -88,6 +89,14 @@ public class MainActivity extends AppCompatActivity implements DataLoader.DataCa
 
             parent.addView(itemView);
         }
+    }
+
+    private String indentTextWith(int repeatCount) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < repeatCount; i++) {
+            builder.append("-");
+        }
+        return builder.toString();
     }
 
     private void startDataLoad() {

@@ -78,6 +78,20 @@ public class DataLoader {
             return this.attr == null || "T".equalsIgnoreCase(this.attr.isLeaf);
         }
 
+        /**
+         * 展示的缩进比例
+         */
+        public int guessIndent() {
+            if (this.attr == null) {
+                return 0;
+            }
+            try {
+                return Integer.valueOf(this.attr.layer);
+            } catch (Throwable e) {
+                return 0;
+            }
+        }
+
     }
 
     public interface DataCallback {
